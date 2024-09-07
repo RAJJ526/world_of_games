@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.game-container {
+    text-align: center;
+}
+
+canvas {
+    border: 2px solid #333;
+    background-color: #000;
+}
+
+.score-container {
+    margin: 20px;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+    <div class="game-container">
+        <h1>Snake Game</h1>
+        <canvas id="gameCanvas" width="600" height="400"></canvas>
+        <div class="score-container">
+            <p>Score: <span id="score">0</span></p>
+        </div>
+        <button id="startButton">Start Game</button>
+    </div>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const scale = 20;
+const rows = canvas.height / scale;
+const columns = canvas.width / scale;
+let snake, food, score, direction, newDirection;
+let isGameRunning = false;
+
+function initGame() {
+    snake = [{ x: Math.floor(columns / 2) * scale, y: Math.floor(rows / 2) * scale }];
+    direction = 'RIGHT';
+    newDirection = 'RIGHT';
+    score = 0;
+    spawnFood();
+    isGameRunning = true;
+    document.getElementById('score').textContent = score;
+    gameLoop();
+}
+
+function spawnFood() {
+    food = {
+        x: Math.floor(Math.random() * columns) * scale,
+        y: Math.floor(Math.random() * rows) * scale
+    };
+}
+
+function gameLoop() {
+    if (!isGameRunning) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawSnake();
+    drawFood();
+    moveSnake();
+    checkCollisions();
+
+    setTimeout(gameLoop, 100); // Adjust speed here
+}
+
+function drawSnake() {
+    ctx.fillStyle = '#00FF00';
+    snake.forEach(part => ctx.fillRect(part.x, part.y, scale, scale));
+}
+
+function drawFood() {
+    ctx.fillStyle = '#FF0000';
+    ctx.fillRect(food.x, food.y, scale, scale);
+}
+
+function moveSnake() {
+    const head = { ...snake[0] };
+
+    switch (newDirection) {
+        case 'UP': head.y -= scale; break;
+        case 'DOWN': head.y += scale; break;
+        case 'LEFT': head.x -= scale; break;
+        case 'RIGHT': head.x += scale; break;
+    }
+
+    snake.unshift(head);
+
+    if (head.x === food.x && head.y === food.y) {
+        score++;
+        document.getElementById('score').textContent = score;
+        spawnFood();
+    } else {
+        snake.pop();
+    }
+
+    direction = newDirection;
+}
+
+function checkCollisions() {
+    const head = snake[0];
+
+    if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height ||
+        snake.slice(1).some(part => part.x === head.x && part.y === head.y)) {
+        endGame();
+    }
+}
+
+function endGame() {
+    isGameRunning = false;
+    alert('Game Over! Your score: ' + score);
+}
+
+function changeDirection(event) {
+    const key = event.key;
+
+    switch (key) {
+        case 'ArrowUp': if (direction !== 'DOWN') newDirection = 'UP'; break;
+        case 'ArrowDown': if (direction !== 'UP') newDirection = 'DOWN'; break;
+        case 'ArrowLeft': if (direction !== 'RIGHT') newDirection = 'LEFT'; break;
+        case 'ArrowRight': if (direction !== 'LEFT') newDirection = 'RIGHT'; break;
+    }
+}
+
+function startGame() {
+    initGame();
+}
+
+document.getElementById('startButton').addEventListener('click', startGame);
+document.addEventListener('keydown', changeDirection);
+
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

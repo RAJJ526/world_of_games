@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamesHub - Play Online Games</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #1e2a38;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2rem;
+    margin-top: 5px;
+    color: #b0c4de;
+}
+
+.games-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.game-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+    padding: 20px;
+    
+}
+
+.game-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.game-card img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.game-card h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 10px;
+   
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 80%;
+    max-height: 80%;
+    position: relative;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content iframe {
+    width: 100%;
+    height: 500px;
+    border-radius: 8px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #555;
+}
+
+footer {
+    background-color: #1e2a38;
+    color: #b0c4de;
+    padding: 20px;
+    text-align: center;
+    margin-top: 40px;
+    font-size: 1rem;
+}
+
+footer p {
+    margin: 0;
+}
+footer {
+    background-color: #1e2a38;
+    color: #b0c4de;
+    padding: 40px 20px;
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.9rem;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1;
+    padding: 20px;
+    min-width: 200px;
+}
+
+.footer-section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.footer-section p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.footer-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #b0c4de;
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    text-decoration: underline;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icon img {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    border-top: 1px solid #333;
+    padding-top: 10px;
+}
+
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>GamesHub</h1>
+        <p>Discover, explore, and play the best online games!</p>
+    </header>
+
+    <section class="games-container">
+        <!-- Game 1: Snake -->
+       <a href="/ludo"> <div class="game-card">
+            <img src="snake-game-thumbnail.jpg" alt="ludo game">
+            <h2>Ludo</h2>
+        </div></a>
+
+        <!-- Game 2: Tic Tac Toe -->
+        <div class="game-card" onclick="openGame('https://playtictactoe.org')">
+            <img src="tictactoe-thumbnail.jpg" alt="Tic Tac Toe">
+            <h2>Tic Tac Toe</h2>
+        </div>
+
+        <!-- Game 3: Memory Game -->
+        <div class="game-card" onclick="openGame('https://memory-game.com')">
+            <img src="memory-game-thumbnail.jpg" alt="Memory Game">
+            <h2>Memory Game</h2>
+        </div>
+   <a href="/snake_xenzia"><div class="game-card">
+            <img src="memory-game-thumbnail.jpg" alt="Snake game">
+            <h2>Snake Xenzia</h2>
+        </div></a>
+        <div class="game-card" onclick="openGame('https://memory-game.com')">
+            <img src="memory-game-thumbnail.jpg" alt="Memory Game">
+            <h2>car racing</h2>
+        </div>
+        <div class="game-card" onclick="openGame('https://memory-game.com')">
+            <img src="memory-game-thumbnail.jpg" alt="Memory Game">
+            <h2>Bike racing</h2>
+        </div>
+        <div class="game-card" onclick="openGame('https://memory-game.com')">
+            <img src="memory-game-thumbnail.jpg" alt="Memory Game">
+            <h2>off road Game</h2>
+        </div>
+        <div class="game-card" onclick="openGame('https://memory-game.com')">
+            <img src="memory-game-thumbnail.jpg" alt="Memory Game">
+            <h2>Train Simulator</h2>
+        </div>
+        <div class="game-card" onclick="openGame('https://memory-game.com')">
+            <img src="memory-game-thumbnail.jpg" alt="Memory Game">
+            <h2>Memory Game</h2>
+        </div>
+
+        <!-- Add more games as needed -->
+    </section>
+
+    <!-- Modal to display the game -->
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeGame()">&times;</span>
+            <iframe id="gameFrame" src="" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h2>About GamesHub</h2>
+                <p>GamesHub is your ultimate destination for discovering and playing a wide variety of online games. Explore new challenges, enjoy classic favorites, and have fun!</p>
+            </div>
+    
+            <div class="footer-section">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="#games">Games</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-section">
+                <h2>Follow Us</h2>
+                <div class="social-links">
+                    <a href="#" class="social-icon"><img src="facebook-icon.png" alt="Facebook"></a>
+                    <a href="#" class="social-icon"><img src="twitter-icon.png" alt="Twitter"></a>
+                    <a href="#" class="social-icon"><img src="instagram-icon.png" alt="Instagram"></a>
+                </div>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <p>&copy; 2024 GamesHub. All rights reserved.</p>
+        </div>
+    </footer>
+    
+<script>
+    // Function to open a game in the modal
+function openGame(gameUrl) {
+    const gameModal = document.getElementById('gameModal');
+    const gameFrame = document.getElementById('gameFrame');
+
+    // Set the game URL in the iframe
+    gameFrame.src = gameUrl;
+
+    // Display the modal
+    gameModal.style.display = 'flex';
+}
+
+// Function to close the game modal
+function closeGame() {
+    const gameModal = document.getElementById('gameModal');
+    const gameFrame = document.getElementById('gameFrame');
+
+    // Clear the game URL and hide the modal
+    gameFrame.src = '';
+    gameModal.style.display = 'none';
+}
+
+</script>
+    <script src="scripts.js"></script>
+</body>
+</html>
